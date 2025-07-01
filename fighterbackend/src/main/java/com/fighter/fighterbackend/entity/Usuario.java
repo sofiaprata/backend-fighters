@@ -1,13 +1,15 @@
-package com.fighter.fighterbackend;
+package com.fighter.fighterbackend.entity;
+
+import com.fighter.fighterbackend.Match;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
-
+@Component
 public class Usuario {
 	//atributos
-	private String id;
+    private String id;
 	private String nome;
-	private String email;
+    private String email;
 	private String senha;
 	private String sexo;
 	private Double pesoEmKg;
@@ -24,6 +26,7 @@ public class Usuario {
     private List<Match> matchesRecebidos;
     
     //construtor
+    public Usuario(){}
     public Usuario(String id, String nome, String email, String senha, String sexo,
             double pesoEmKg, int alturaEmCm, String arteMarcial, String nivelExperiencia,
             String localizacao, String fotoPerfilUrl, double reputacao, String descricao) {
