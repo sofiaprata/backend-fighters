@@ -14,7 +14,7 @@ public class FirebaseConfig{
     @PostConstruct
     public void configureFirebaseConnection(){
 
-        final String SERVICE_ACCOUNT_KEY_PATH = "C:\\Users\\Rubens\\Documents\\IFCE\\POO\\chave-firebase\\serviceAccountKey.json";
+        final String SERVICE_ACCOUNT_KEY_PATH = "D:\\chave-firebase\\serviceAccountKey.json";
 
         try {
             FileInputStream serviceAccount =
