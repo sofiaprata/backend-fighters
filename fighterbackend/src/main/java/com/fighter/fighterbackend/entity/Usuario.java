@@ -1,6 +1,5 @@
 package com.fighter.fighterbackend.entity;
 
-import com.fighter.fighterbackend.Match;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,7 +9,6 @@ public class Usuario {
     private String id;
 	private String nome;
     private String email;
-	private String senha;
 	private String sexo;
 	private Double pesoEmKg;
 	private int alturaEmCm;
@@ -20,20 +18,16 @@ public class Usuario {
     private String fotoPerfilUrl;
     private Double reputacao;
     private String descricao;
-    
-    //relacionamentos
-    private List<Match> matchesEnviados;
-    private List<Match> matchesRecebidos;
+
     
     //construtor
     public Usuario(){}
-    public Usuario(String id, String nome, String email, String senha, String sexo,
+    public Usuario(String id, String nome, String email,  String sexo,
             double pesoEmKg, int alturaEmCm, String arteMarcial, String nivelExperiencia,
             String localizacao, String fotoPerfilUrl, double reputacao, String descricao) {
     	this.id = id;
     	this.nome = nome;
     	this.email = email;
-    	this.senha = senha;
     	this.sexo = sexo;
     	this.pesoEmKg = pesoEmKg;
     	this.alturaEmCm = alturaEmCm;
@@ -69,14 +63,6 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 
     public String getSexo() {
@@ -149,22 +135,6 @@ public class Usuario {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public List<Match> getMatchesEnviados() {
-        return matchesEnviados;
-    }
-
-    public void setMatchesEnviados(List<Match> matchesEnviados) {
-        this.matchesEnviados = matchesEnviados;
-    }
-
-    public List<Match> getMatchesRecebidos() {
-        return matchesRecebidos;
-    }
-
-    public void setMatchesRecebidos(List<Match> matchesRecebidos) {
-        this.matchesRecebidos = matchesRecebidos;
     }
 }
     
