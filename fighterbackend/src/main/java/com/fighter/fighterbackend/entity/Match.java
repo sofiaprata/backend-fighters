@@ -11,8 +11,8 @@ public class Match {
 
     public Match(){}
 
-    // Construtor para ser usado pelo LikeService
-    public Match(String id, String user1Id, String user2Id, String status, Date matchedAt, Date lastMessageAt) {
+    // Construtor atualizado, sem o parâmetro 'status'
+    public Match(String id, String user1Id, String user2Id, Date matchedAt, Date lastMessageAt) {
         this.id = id;
         this.user1Id = user1Id;
         this.user2Id = user2Id;
@@ -20,7 +20,7 @@ public class Match {
         this.lastMessageAt = lastMessageAt;
     }
 
-    //Getters e Setters
+    // Getters e Setters
     public String getId() {return id;}
     public void setId(String id) {this.id = id;}
     public String getUser1Id() {return user1Id;}

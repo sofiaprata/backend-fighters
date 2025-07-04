@@ -69,7 +69,7 @@ public class ChatService {
         return mensagens;
     }
 
-    public String addMessageToConversation(String conversationId, Mensagem mensagem) throws ExecutionException, InterruptedException {
+    public String addMensagemToChat(String conversationId, Mensagem mensagem) throws ExecutionException, InterruptedException {
         // Adiciona a mensagem à subcoleção
         DocumentReference messageRef = firestore.collection(CHATS_COLLECTION)
                 .document(conversationId)
@@ -81,12 +81,40 @@ public class ChatService {
         future.get();
 
         // Atualiza o chat principal com a última mensagem e timestamp
+        DocumentReference chatRef = firestore.collection(CHATS_COLLECTION).document(conversationId);
+        chatRef.update(
+                "lastMessage", mensagem.getContent(),
+                "lastMessageSenderId", mensagem.getSenderId(),
+                "lastMessageAt", mensagem.getTimestamp()
+        ).get();
+
+        return mensagem.getId();
+    }
+
+    public String sendMensagem(String conversationId, String senderId, String receiverId, String content) throws ExecutionException, InterruptedException {
+        Mensagem mensagem = new Mensagem();
+        mensagem.setSenderId(senderId);
+        mensagem.setReceiverId(receiverId); // Pode ser útil para filtros futuros ou validação no cliente
+        mensagem.setContent(content);
+        mensagem.setTimestamp(new Date()); // Define o timestamp atual
+        mensagem.setRead(false); // Mensagem nova, ainda não lida
+
+        DocumentReference messageRef = firestore.collection(CHATS_COLLECTION)
+                .document(conversationId)
+                .collection(MESSAGES_SUBCOLLECTION)
+                .document(); // Gera um novo ID para a mensagem
+        mensagem.setId(messageRef.getId()); // Define o ID gerado no objeto Mensagem
+
+        ApiFuture<WriteResult> future = messageRef.set(mensagem);
+        future.get(); // Espera a mensagem ser salva
+
+        // Atualiza o chat principal com a última mensagem e timestamp
         DocumentReference conversationRef = firestore.collection(CHATS_COLLECTION).document(conversationId);
         conversationRef.update(
                 "lastMessage", mensagem.getContent(),
                 "lastMessageSenderId", mensagem.getSenderId(),
                 "lastMessageAt", mensagem.getTimestamp()
-        ).get();
+        ).get(); // Espera a atualização do chat
 
         return mensagem.getId();
     }

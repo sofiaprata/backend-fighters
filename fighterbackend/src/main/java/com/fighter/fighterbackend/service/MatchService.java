@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -58,15 +59,48 @@ public class MatchService {
     }
 
     /**
-     * Cria ou atualiza um match. Este método será chamado pelo LikeService.
-     * Garante que o ID do match seja consistente (menor_maior).
-     * @param match O objeto Match a ser salvo.
-     * @return O ID do match.
+     * Recupera um match pelo seu ID.
+     * @param matchId O ID do match a ser recuperado.
+     * @return O objeto Match correspondente ao ID, ou null se não encontrado.
+     * @throws ExecutionException Se um erro ocorrer durante a execução da operação assíncrona.
+     * @throws InterruptedException Se a thread atual for interrompida enquanto espera.
      */
-    public String createOrUpdateMatch(Match match) throws ExecutionException, InterruptedException {
+    public Match getMatchById(String matchId) throws ExecutionException, InterruptedException {
+        DocumentReference docRef = firestore.collection(COLLECTION_NAME).document(matchId);
+        ApiFuture<DocumentSnapshot> future = docRef.get();
+        DocumentSnapshot document = future.get();
+        if (document.exists()) {
+            Match match = document.toObject(Match.class);
+            match.setId(document.getId()); // Garante que o ID do documento seja definido no objeto
+            return match;
+        }
+        return null;
+    }
+
+    /**
+     * Cria um novo match entre dois usuários no banco de dados Firestore.
+     * O ID do match é gerado de forma consistente, garantindo que um match entre
+     * o usuário A e o usuário B sempre terá o mesmo ID, independentemente da ordem
+     * em que os IDs dos usuários são fornecidos.
+     *
+     * Este método inicializa o match com o timestamp atual para os campos
+     * `matchedAt` e `lastMessageAt`.
+     *
+     * @param user1Id O ID do primeiro usuário envolvido no match.
+     * @param user2Id O ID do segundo usuário envolvido no match.
+     * @return O ID consistente do match criado.
+     * @throws ExecutionException Se ocorrer um erro durante a execução da operação no Firestore.
+     * @throws InterruptedException Se a thread atual for interrompida enquanto espera a conclusão da operação no Firestore.
+     */
+    public String createMatch(String user1Id, String user2Id) throws ExecutionException, InterruptedException {
         // Usa o helper para garantir que o ID do documento seja consistente
-        String consistentMatchId = createMatchId(match.getUser1Id(), match.getUser2Id());
+        String consistentMatchId = createMatchId(user1Id, user2Id);
+        Match match = new Match();
         match.setId(consistentMatchId); // Define o ID consistente no objeto Match
+        match.setUser1Id(user1Id);
+        match.setUser2Id(user2Id);
+        match.setMatchedAt(new Date()); // Define o timestamp atual para o momento do match
+        match.setLastMessageAt(new Date()); // Inicializa o timestamp da última mensagem
 
         ApiFuture<WriteResult> future = firestore.collection(COLLECTION_NAME).document(consistentMatchId).set(match);
         future.get();
