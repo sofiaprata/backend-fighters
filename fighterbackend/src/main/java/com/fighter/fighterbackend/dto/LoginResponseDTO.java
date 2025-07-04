@@ -1,13 +1,13 @@
 package com.fighter.fighterbackend.dto;
 
-public class LoginResponse {
+public class LoginResponseDTO {
     private String uid;
     private String email;
     private String displayName;
     private String message;
     // ... outros dados do perfil que você queira retornar
 
-    public LoginResponse(String uid, String email, String displayName, String message) {
+    public LoginResponseDTO(String uid, String email, String displayName, String message) {
         this.uid = uid;
         this.email = email;
         this.displayName = displayName;

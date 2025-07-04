@@ -1,9 +1,9 @@
 package com.fighter.fighterbackend.dto;
 
-public class RegisterRequest {
+public class RegisterRequestDTO {
     private String email;
     private String password;
-    private String displayName; // Opcional
+    private String displayName;
 
     // Getters e Setters
     public String getEmail() {

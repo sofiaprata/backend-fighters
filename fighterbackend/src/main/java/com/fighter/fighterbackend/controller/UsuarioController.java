@@ -1,11 +1,15 @@
 package com.fighter.fighterbackend.controller;
 
+import com.fighter.fighterbackend.dto.UsuarioRequestDTO;
+import com.fighter.fighterbackend.dto.UsuarioResponseDTO;
 import com.fighter.fighterbackend.entity.Usuario;
 import com.fighter.fighterbackend.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -20,19 +24,55 @@ public class UsuarioController {
     @Autowired
     public UsuarioService usuarioService;
 
-    @PostMapping("/create")
-    public String createUsuario(@RequestBody Usuario usuario) throws InterruptedException, ExecutionException {
-        return usuarioService.createUsuario(usuario);
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UsuarioResponseDTO> getUsuarioById(@PathVariable String id) {
+        try {
+            UsuarioResponseDTO usuarioDto = usuarioService.getUsuarioById(id);
+            if (usuarioDto != null) {
+                return new ResponseEntity<>(usuarioDto, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    @GetMapping("/get")
-    public Usuario getUsuario(@RequestParam String id) throws InterruptedException, ExecutionException {
-        return usuarioService.getUsuario(id);
+    @GetMapping("/sexo/{sexo}")
+    public ResponseEntity<List<UsuarioResponseDTO>> getUsuariosBySexo(@PathVariable String sexo) {
+        try {
+            List<UsuarioResponseDTO> usuarios = usuarioService.getUsuariosBySexo(sexo);
+            return new ResponseEntity<>(usuarios, HttpStatus.OK);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    @PutMapping("/update")
-    public String updateUsuario(@RequestBody Usuario usuario) throws InterruptedException, ExecutionException {
-        return usuarioService.updateUsuario(usuario);
+    @GetMapping("/arteMarcial/{arteMarcial}")
+    public ResponseEntity<List<UsuarioResponseDTO>> getUsuariosByArteMarcial(@PathVariable String arteMarcial) {
+        try {
+            List<UsuarioResponseDTO> usuarios = usuarioService.getUsuariosByArteMarcial(arteMarcial);
+            return new ResponseEntity<>(usuarios, HttpStatus.OK);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioResponseDTO> updateUsuario(@PathVariable String id, @RequestBody UsuarioRequestDTO usuarioDto) {
+        try {
+            UsuarioResponseDTO updatedUsuarioDto = usuarioService.updateUsuario(id, usuarioDto);
+            if (updatedUsuarioDto != null) {
+                return new ResponseEntity<>(updatedUsuarioDto, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/delete")

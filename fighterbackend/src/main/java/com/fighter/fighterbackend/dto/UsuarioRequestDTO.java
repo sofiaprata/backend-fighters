@@ -1,13 +1,8 @@
-package com.fighter.fighterbackend.entity;
+package com.fighter.fighterbackend.dto;
 
-import org.springframework.stereotype.Component;
-
-import java.util.Date;
 import java.util.List;
 
-@Component
-public class Usuario {
-    // atributos
+public class UsuarioRequestDTO {
     private String id;
     private String nome;
     private String email;
@@ -18,36 +13,9 @@ public class Usuario {
     private String nivelExperiencia;
     private String localizacao;
     private String fotoPerfilUrl;
-    private Double reputacao;
     private String descricao;
-    private Date createdAt;
-    private Date lastActive;
 
-    // construtor vazio
-    public Usuario(){}
-
-    // Construtor completo
-    public Usuario(String id, String nome, String email, String sexo,
-                   String pesoCategoria, int alturaEmCm, List<String> arteMarcial,
-                   String nivelExperiencia, String localizacao, String fotoPerfilUrl,
-                   double reputacao, String descricao, Date createdAt, Date lastActive) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.sexo = sexo;
-        this.pesoCategoria = pesoCategoria;
-        this.alturaEmCm = alturaEmCm;
-        this.arteMarcial = arteMarcial;
-        this.nivelExperiencia = nivelExperiencia;
-        this.localizacao = localizacao;
-        this.fotoPerfilUrl = fotoPerfilUrl;
-        this.reputacao = reputacao;
-        this.descricao = descricao;
-        this.createdAt = createdAt;
-        this.lastActive = lastActive;
-    }
-
-    // getters e setters
+    // Getters e Setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
     public String getNome() { return nome; }
@@ -68,12 +36,6 @@ public class Usuario {
     public void setLocalizacao(String localizacao) { this.localizacao = localizacao; }
     public String getFotoPerfilUrl() { return fotoPerfilUrl; }
     public void setFotoPerfilUrl(String fotoPerfilUrl) { this.fotoPerfilUrl = fotoPerfilUrl; }
-    public Double getReputacao() { return reputacao; }
-    public void setReputacao(Double reputacao) { this.reputacao = reputacao; }
     public String getDescricao() { return descricao; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
-    public Date getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
-    public Date getLastActive() { return lastActive; }
-    public void setLastActive(Date lastActive) { this.lastActive = lastActive; }
 }

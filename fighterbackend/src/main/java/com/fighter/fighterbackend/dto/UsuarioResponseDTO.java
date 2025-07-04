@@ -1,13 +1,9 @@
-package com.fighter.fighterbackend.entity;
-
-import org.springframework.stereotype.Component;
+package com.fighter.fighterbackend.dto;
 
 import java.util.Date;
 import java.util.List;
 
-@Component
-public class Usuario {
-    // atributos
+public class UsuarioResponseDTO {
     private String id;
     private String nome;
     private String email;
@@ -23,31 +19,10 @@ public class Usuario {
     private Date createdAt;
     private Date lastActive;
 
-    // construtor vazio
-    public Usuario(){}
+    // Construtor vazio
+    public UsuarioResponseDTO() {}
 
-    // Construtor completo
-    public Usuario(String id, String nome, String email, String sexo,
-                   String pesoCategoria, int alturaEmCm, List<String> arteMarcial,
-                   String nivelExperiencia, String localizacao, String fotoPerfilUrl,
-                   double reputacao, String descricao, Date createdAt, Date lastActive) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.sexo = sexo;
-        this.pesoCategoria = pesoCategoria;
-        this.alturaEmCm = alturaEmCm;
-        this.arteMarcial = arteMarcial;
-        this.nivelExperiencia = nivelExperiencia;
-        this.localizacao = localizacao;
-        this.fotoPerfilUrl = fotoPerfilUrl;
-        this.reputacao = reputacao;
-        this.descricao = descricao;
-        this.createdAt = createdAt;
-        this.lastActive = lastActive;
-    }
-
-    // getters e setters
+    // Getters e Setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
     public String getNome() { return nome; }
