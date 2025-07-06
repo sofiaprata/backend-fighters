@@ -15,8 +15,9 @@ public class CorsConfig implements WebMvcConfigurer {
         registry.addMapping("/**") // Aplica a configuração CORS para TODOS os endpoints da sua API
                 .allowedOrigins(
                         "http://localhost:5500",    // Adicione a URL exata do seu Live Server
-                        "http://127.0.0.1:5500"     // Live Server também pode usar 127.0.0.1
+                        "http://127.0.0.1:5500",     // Live Server também pode usar 127.0.0.1
                         // Adicione aqui outras origens se você tiver, ex: "http://localhost:3000" para React/Angular
+                        "http://localhost:62863"
                 )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Permite os métodos HTTP comuns
                 .allowedHeaders("*") // Permite todos os cabeçalhos na requisição (incluindo 'Authorization')

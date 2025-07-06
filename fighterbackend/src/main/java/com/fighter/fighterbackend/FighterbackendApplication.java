@@ -12,5 +12,4 @@ public class FighterbackendApplication {
 		SpringApplication.run(FighterbackendApplication.class, args);
 	}
 
-
 }

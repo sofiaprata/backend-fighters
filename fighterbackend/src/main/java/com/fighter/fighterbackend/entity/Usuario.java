@@ -12,6 +12,7 @@ public class Usuario {
     private String nome;
     private String email;
     private String sexo;
+    private String dataNascimento;
     private String pesoCategoria;
     private int alturaEmCm;
     private List<String> arteMarcial;
@@ -27,7 +28,7 @@ public class Usuario {
     public Usuario(){}
 
     // Construtor completo
-    public Usuario(String id, String nome, String email, String sexo,
+    public Usuario(String id, String nome, String email, String sexo, String dataNascimento,
                    String pesoCategoria, int alturaEmCm, List<String> arteMarcial,
                    String nivelExperiencia, String localizacao, String fotoPerfilUrl,
                    double reputacao, String descricao, Date createdAt, Date lastActive) {
@@ -35,6 +36,7 @@ public class Usuario {
         this.nome = nome;
         this.email = email;
         this.sexo = sexo;
+        this.dataNascimento = dataNascimento;
         this.pesoCategoria = pesoCategoria;
         this.alturaEmCm = alturaEmCm;
         this.arteMarcial = arteMarcial;
@@ -56,6 +58,8 @@ public class Usuario {
     public void setEmail(String email) { this.email = email; }
     public String getSexo() { return sexo; }
     public void setSexo(String sexo) { this.sexo = sexo; }
+    public String getDataNascimento() { return dataNascimento;}
+    public void setDataNascimento(String dataNascimento) { this.dataNascimento = dataNascimento;}
     public String getPesoCategoria() { return pesoCategoria; }
     public void setPesoCategoria(String pesoCategoria) { this.pesoCategoria = pesoCategoria; }
     public int getAlturaEmCm() { return alturaEmCm; }

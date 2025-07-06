@@ -30,6 +30,7 @@ public class UsuarioService {
         dto.setNome(usuario.getNome());
         dto.setEmail(usuario.getEmail());
         dto.setSexo(usuario.getSexo());
+        dto.setDataNascimento(usuario.getDataNascimento());
         dto.setPesoCategoria(usuario.getPesoCategoria());
         dto.setAlturaEmCm(usuario.getAlturaEmCm());
         dto.setArteMarcial(usuario.getArteMarcial());
@@ -137,6 +138,9 @@ public class UsuarioService {
             }
             if (usuarioDto.getSexo() != null) {
                 existingUsuario.setSexo(usuarioDto.getSexo());
+            }
+            if (usuarioDto.getDataNascimento() != null) {
+                existingUsuario.setDataNascimento(usuarioDto.getDataNascimento());
             }
             if (usuarioDto.getPesoCategoria() != null) {
                 existingUsuario.setPesoCategoria(usuarioDto.getPesoCategoria());

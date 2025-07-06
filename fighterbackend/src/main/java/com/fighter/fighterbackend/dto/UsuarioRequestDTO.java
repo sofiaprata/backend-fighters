@@ -7,6 +7,7 @@ public class UsuarioRequestDTO {
     private String nome;
     private String email;
     private String sexo;
+    private String dataNascimento;
     private String pesoCategoria;
     private int alturaEmCm;
     private List<String> arteMarcial;
@@ -14,7 +15,6 @@ public class UsuarioRequestDTO {
     private String localizacao;
     private String fotoPerfilUrl;
     private String descricao;
-
     // Getters e Setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
@@ -23,6 +23,8 @@ public class UsuarioRequestDTO {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
     public String getSexo() { return sexo; }
+    public String getDataNascimento(){ return dataNascimento;}
+    public void setDataNascimento(String dataNascimento){ this.dataNascimento = dataNascimento;}
     public void setSexo(String sexo) { this.sexo = sexo; }
     public String getPesoCategoria() { return pesoCategoria; }
     public void setPesoCategoria(String pesoCategoria) { this.pesoCategoria = pesoCategoria; }
@@ -38,4 +40,5 @@ public class UsuarioRequestDTO {
     public void setFotoPerfilUrl(String fotoPerfilUrl) { this.fotoPerfilUrl = fotoPerfilUrl; }
     public String getDescricao() { return descricao; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
+
 }

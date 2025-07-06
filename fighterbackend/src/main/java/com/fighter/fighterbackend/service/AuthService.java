@@ -68,6 +68,7 @@ public class AuthService {
 
         // Inicializa os campos de perfil com valores nulos ou padrão para serem atualizados posteriormente
         userProfile.put("sexo", null);
+        userProfile.put("dataNascimento", null);
         userProfile.put("pesoCategoria", null);
         userProfile.put("alturaEmCm", 0);
         userProfile.put("arteMarcial", new ArrayList<String>());
