@@ -119,6 +119,53 @@ public class UsuarioService {
                 .collect(Collectors.toList());
     }
 
+    public List<UsuarioResponseDTO> getUsuariosFiltrados(
+            String sexo,
+            String arteMarcial,
+            String localizacao,
+            String nivelExperiencia,
+            String pesoCategoria
+    ) throws ExecutionException, InterruptedException {
+        Query query = firestore.collection(FB_COLLECTION_NAME);
+
+        if (sexo != null && !sexo.trim().isEmpty()) {
+            query = query.whereEqualTo("sexo", sexo);
+        }
+        if (arteMarcial != null && !arteMarcial.trim().isEmpty()) {
+            query = query.whereArrayContains("arteMarcial", arteMarcial);
+        }
+        if (localizacao != null && !localizacao.trim().isEmpty()) {
+            query = query.whereEqualTo("localizacao", localizacao);
+        }
+        if (nivelExperiencia != null && !nivelExperiencia.trim().isEmpty()) {
+            query = query.whereArrayContains("nivelExperiencia", nivelExperiencia);
+        }
+        if (pesoCategoria != null && !pesoCategoria.trim().isEmpty()) {
+            query = query.whereEqualTo("pesoCategoria", pesoCategoria);
+        }
+
+        ApiFuture<QuerySnapshot> future = query.get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+
+        List<Usuario> usuarios = new ArrayList<>();
+        for (QueryDocumentSnapshot document : documents) {
+            Usuario usuario = document.toObject(Usuario.class);
+            if (usuario != null) {
+                usuario.setId(document.getId());
+                if (document.contains("createdAt")) {
+                    usuario.setCreatedAt(document.getTimestamp("createdAt").toDate());
+                }
+                if (document.contains("lastActive")) {
+                    usuario.setLastActive(document.getTimestamp("lastActive").toDate());
+                }
+                usuarios.add(usuario);
+            }
+        }
+        return usuarios.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
     public UsuarioResponseDTO updateUsuario(String id, UsuarioRequestDTO usuarioDto) throws ExecutionException, InterruptedException {
         DocumentReference docRef = firestore.collection(FB_COLLECTION_NAME).document(id);
         ApiFuture<DocumentSnapshot> future = docRef.get();

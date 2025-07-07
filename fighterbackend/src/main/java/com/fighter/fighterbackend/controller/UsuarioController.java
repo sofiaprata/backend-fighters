@@ -39,6 +39,23 @@ public class UsuarioController {
         }
     }
 
+    @GetMapping("/filtrar")
+    public ResponseEntity<List<UsuarioResponseDTO>> getUsuariosFiltrados(
+            @RequestParam(required = false) String sexo,
+            @RequestParam(required = false) String arteMarcial,
+            @RequestParam(required = false) String localizacao,
+            @RequestParam(required = false) String nivelExperiencia,
+            @RequestParam(required = false) String pesoCategoria
+            ) {
+        try {
+            List<UsuarioResponseDTO> usuarios = usuarioService.getUsuariosFiltrados(sexo, arteMarcial, localizacao, nivelExperiencia, pesoCategoria);
+            return new ResponseEntity<>(usuarios, HttpStatus.OK);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/sexo/{sexo}")
     public ResponseEntity<List<UsuarioResponseDTO>> getUsuariosBySexo(@PathVariable String sexo) {
         try {
